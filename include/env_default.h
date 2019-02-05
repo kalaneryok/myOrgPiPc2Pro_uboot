@@ -10,6 +10,9 @@
 
 #include <env_callback.h>
 
+#define CONFIG_IPADDR 192.168.0.120
+#define CONFIG_SERVERIP 192.168.0.16
+
 #ifdef DEFAULT_ENV_INSTANCE_EMBEDDED
 env_t environment __UBOOT_ENV_SECTION__ = {
 	ENV_CRC,	/* CRC Sum */
