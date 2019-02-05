@@ -85,3 +85,7 @@ GTAGS
 *.orig
 *~
 \#*#
+# ak set
+!sunxi-h5-spl32-ddr3.bin
+!bl31uboot.bin
+# ak end set
