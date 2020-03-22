@@ -409,9 +409,10 @@ config SYS_CONFIG_NAME
 	default "sun5i" if MACH_SUN5I
 	default "sun6i" if MACH_SUN6I
 	default "sun7i" if MACH_SUN7I
+	default "sun50i" if MACH_SUN50I || MACH_SUN50I_H5
 	default "sun8i" if MACH_SUN8I
 	default "sun9i" if MACH_SUN9I
-	default "sun50i" if MACH_SUN50I
+	
 
 config SYS_BOARD
 	default "sunxi"

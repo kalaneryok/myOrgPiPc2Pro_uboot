@@ -20,7 +20,19 @@
 
 #define GICD_BASE		0x1c81000
 #define GICC_BASE		0x1c82000
+/*mine
+#define CONFIG_BOOTCOMMAND  "run distro_bootcmd"
+*/
 
+#define CONFIG_RAMBOOTCOMMAND						\
+	"tftp $kernel_addr_r Image;"				\
+	"tftp $fdt_addr_r $fdtfile;"					\
+	"booti $kernel_addr_r - $fdt_addr_r"
+
+#define CONFIG_SERVERIP 192.168.5.100
+#define CONFIG_IPADDR 192.168.5.123
+
+/*end mine*/
 /*
  * Include common sunxi configuration where most the settings are
  */
