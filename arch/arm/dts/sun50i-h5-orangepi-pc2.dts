@@ -61,6 +61,7 @@
 	aliases {
 		serial0 = &uart0;
 		ethernet0 = &emac;
+		spi0 = &spi0;
 	};
 
 	soc {
@@ -85,7 +86,9 @@
 	cd-inverted;
 	status = "okay";
 };
-
+&spi0 {
+	status = "okay";
+};
 &uart0 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart0_pins_a>;

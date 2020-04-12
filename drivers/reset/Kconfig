@@ -83,4 +83,11 @@ config RESET_ROCKCHIP
 	  though is that some reset signals, like I2C or MISC reset multiple
 	  devices.
 
+config RESET_SUNXI
+	bool "RESET support for Allwinner SoCs"
+	depends on DM_RESET && ARCH_SUNXI
+	default y
+	help
+	  This enables support for common reset driver for
+	  Allwinner SoCs.
 endmenu

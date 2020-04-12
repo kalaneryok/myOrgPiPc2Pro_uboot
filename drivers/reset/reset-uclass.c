@@ -81,6 +81,40 @@ int reset_get_by_index(struct udevice *dev, int index,
 	return 0;
 }
 
+int reset_get_bulk(struct udevice *dev, struct reset_ctl_bulk *bulk)
+{
+	int i, ret, err, count;
+	
+	bulk->count = 0;
+
+	count = dev_count_phandle_with_args(dev, "resets", "#reset-cells");
+	if (count < 1)
+		return count;
+
+	bulk->resets = devm_kcalloc(dev, count, sizeof(struct reset_ctl),
+				    GFP_KERNEL);
+	if (!bulk->resets)
+		return -ENOMEM;
+
+	for (i = 0; i < count; i++) {
+		ret = reset_get_by_index(dev, i, &bulk->resets[i]);
+		if (ret < 0)
+			goto bulk_get_err;
+
+		++bulk->count;
+	}
+
+	return 0;
+
+bulk_get_err:
+	err = reset_release_all(bulk->resets, bulk->count);
+	if (err)
+		debug("%s: could release all resets for %p\n",
+		      __func__, dev);
+
+	return ret;
+}
+
 int reset_get_by_name(struct udevice *dev, const char *name,
 		     struct reset_ctl *reset_ctl)
 {
@@ -133,6 +167,19 @@ int reset_deassert(struct reset_ctl *reset_ctl)
 	debug("%s(reset_ctl=%p)\n", __func__, reset_ctl);
 
 	return ops->rst_deassert(reset_ctl);
+}
+
+int reset_deassert_bulk(struct reset_ctl_bulk *bulk)
+{
+	int i, ret;
+
+	for (i = 0; i < bulk->count; i++) {
+		ret = reset_deassert(&bulk->resets[i]);
+		if (ret < 0)
+			return ret;
+	}
+
+	return 0;
 }
 
 int reset_release_all(struct reset_ctl *reset_ctl, int count)

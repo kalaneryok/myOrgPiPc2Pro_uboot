@@ -396,6 +396,10 @@
 				allwinner,drive = <SUN4I_PINCTRL_10_MA>;
 				allwinner,pull = <SUN4I_PINCTRL_NO_PULL>;
 			};
+			spi0_pins: spi0 {
+				pins = "PC0", "PC1", "PC2", "PC3";
+				function = "spi0";
+			};
 		};
 
 		timer@01c20c00 {
@@ -463,7 +467,19 @@
 			dma-names = "rx", "tx";
 			status = "disabled";
 		};
-
+		spi0: spi@1c68000 {
+			compatible = "allwinner,sun8i-h3-spi";
+			reg = <0x01c68000 0x1000>;
+			interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_SPI0>, <&ccu CLK_SPI0>;
+			clock-names = "ahb", "mod";
+			pinctrl-names = "default";
+			pinctrl-0 = <&spi0_pins>;
+			resets = <&ccu RST_BUS_SPI0>;
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
 		emac: ethernet@1c30000 {
 			compatible = "allwinner,sun8i-h3-emac";
 			reg = <0x01c30000 0x104>, <0x01c00030 0x4>;

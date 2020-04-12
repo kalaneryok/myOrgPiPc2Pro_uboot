@@ -16,6 +16,7 @@ obj-$(CONFIG_CLK_BOSTON) += clk_boston.o
 obj-$(CONFIG_CLK_EXYNOS) += exynos/
 obj-$(CONFIG_CLK_HSDK) += clk-hsdk-cgu.o
 obj-$(CONFIG_CLK_RENESAS) += renesas/
+obj-$(CONFIG_ARCH_SUNXI) += sunxi/
 obj-$(CONFIG_CLK_STM32F) += clk_stm32f.o
 obj-$(CONFIG_CLK_UNIPHIER) += uniphier/
 obj-$(CONFIG_CLK_ZYNQ) += clk_zynq.o
